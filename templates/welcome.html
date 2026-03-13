@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Job Match Platform</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0b0b0f;
+color:white;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:#000;
+}
+
+.logo{
+font-size:28px;
+font-weight:700;
+color:#a855f7;
+}
+
+.nav-links{
+display:flex;
+gap:30px;
+}
+
+.nav-links a{
+text-decoration:none;
+color:white;
+font-size:16px;
+transition:0.3s;
+}
+
+.nav-links a:hover{
+color:#a855f7;
+}
+
+/* HERO */
+
+.hero{
+height:90vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:40px;
+}
+
+.hero h1{
+font-size:64px;
+font-weight:700;
+margin-bottom:20px;
+}
+
+.hero span{
+color:#a855f7;
+}
+
+.hero p{
+font-size:20px;
+max-width:700px;
+opacity:0.8;
+margin-bottom:40px;
+}
+
+/* BUTTON */
+
+.cta-btn{
+
+padding:16px 40px;
+font-size:18px;
+border:none;
+border-radius:8px;
+
+background:linear-gradient(135deg,#9333ea,#c026d3);
+
+color:white;
+cursor:pointer;
+
+transition:0.3s;
+
+}
+
+.cta-btn:hover{
+transform:scale(1.05);
+box-shadow:0 10px 30px rgba(168,85,247,0.6);
+}
+
+/* FEATURES */
+
+.features{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+
+padding:80px 80px;
+background:#111;
+
+}
+
+.feature-card{
+
+background:#1a1a1f;
+padding:40px;
+border-radius:12px;
+transition:0.3s;
+
+}
+
+.feature-card:hover{
+
+transform:translateY(-10px);
+background:#1f1f27;
+
+}
+
+.feature-card h3{
+margin-bottom:15px;
+color:#c084fc;
+}
+
+footer{
+text-align:center;
+padding:20px;
+background:#000;
+opacity:0.7;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+<div class="logo">JobAI</div>
+
+<div class="nav-links">
+<a href="#">Home</a>
+<a href="#">Features</a>
+<a href="#">How It Works</a>
+<a href="#">Careers</a>
+<a href="/login">Login</a>
+</div>
+
+</div>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h1>Match. Improve. <span>Get Hired.</span></h1>
+
+<p>
+Upload your resume and instantly discover how well it matches a job description.
+Improve your CV with AI insights and land your dream job faster.
+</p>
+
+<button class="cta-btn"
+onclick="window.location.href='/login'">
+Get Started
+</button>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="features">
+
+<div class="feature-card">
+<h3>AI Resume Analysis</h3>
+<p>Analyze resumes using NLP and machine learning to calculate job match scores.</p>
+</div>
+
+<div class="feature-card">
+<h3>Skill Gap Detection</h3>
+<p>Identify missing skills between your resume and the job description.</p>
+</div>
+
+<div class="feature-card">
+<h3>ATS Optimization</h3>
+<p>Improve your resume to pass Applicant Tracking Systems.</p>
+</div>
+
+<div class="feature-card">
+<h3>Smart Suggestions</h3>
+<p>Get AI-powered recommendations to improve your CV.</p>
+</div>
+
+</section>
+
+<footer>
+
+<p>© 2026 JobAI Platform</p>
+
+</footer>
+
+</body>
+</html>

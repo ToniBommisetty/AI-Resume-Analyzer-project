@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Resume Analyzer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0b0b0f;
+color:white;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:#000;
+}
+
+.logo{
+font-size:26px;
+font-weight:700;
+color:#a855f7;
+}
+
+.logout{
+color:white;
+text-decoration:none;
+}
+
+/* MAIN CONTAINER */
+
+.container{
+max-width:900px;
+margin:60px auto;
+padding:40px;
+background:#111;
+border-radius:10px;
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* FORM */
+
+input, textarea{
+width:100%;
+padding:12px;
+margin-top:10px;
+margin-bottom:20px;
+border-radius:6px;
+border:none;
+background:#1f1f1f;
+color:white;
+}
+
+label{
+font-weight:500;
+}
+
+/* BUTTON */
+
+button{
+padding:14px 35px;
+border:none;
+border-radius:8px;
+background:linear-gradient(135deg,#9333ea,#c026d3);
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+box-shadow:0 10px 25px rgba(168,85,247,0.6);
+}
+
+/* RESULTS */
+
+.results{
+margin-top:40px;
+}
+
+.results h3{
+color:#a855f7;
+margin-bottom:10px;
+}
+
+ul{
+margin-bottom:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+
+<div class="logo">AI Resume Analyzer</div>
+
+<a href="/logout" class="logout">Logout</a>
+
+</div>
+
+<div class="container">
+
+<h2>Check Your Resume Match Score</h2>
+
+<br>
+
+<form method="POST" action="/analyzer" enctype="multipart/form-data">
+
+<label>Upload Resume (PDF)</label>
+<input type="file" name="resume" required>
+
+<label>Paste Job Description</label>
+<textarea name="job_description" rows="8" required></textarea>
+
+<button type="submit">Analyze Resume</button>
+
+</form>
+
+{% if score is not none %}
+
+<div class="results">
+
+<h3>Match Score: {{score}}%</h3>
+
+<h4>Matched Skills</h4>
+
+{% if matched_skills %}
+<ul>
+{% for s in matched_skills %}
+<li>✔ {{s}}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No skills matched</p>
+{% endif %}
+
+<h4>Missing Skills</h4>
+
+<ul>
+{% for s in missing_skills %}
+<li>{{s}}</li>
+{% endfor %}
+</ul>
+
+<h4>Suggestions</h4>
+
+<ul>
+{% for s in suggestions %}
+<li>{{s}}</li>
+{% endfor %}
+</ul>
+
+<h4>Recommended Resume Format</h4>
+
+<p>{{resume_format}}</p>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
