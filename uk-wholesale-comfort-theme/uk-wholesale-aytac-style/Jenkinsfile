@@ -25,10 +25,15 @@ pipeline {
             }
         }
 
-        stage('Deploy (PM2)') {
+        stage('Deploy') {
             steps {
-                bat 'npx pm2 delete uk-wholesale || exit 0'
-                bat 'npx pm2 start server.js --name uk-wholesale'
+                echo 'Starting application using Node (no PM2)'
+                
+                // Kill any old node process (prevents port issues)
+                bat 'taskkill /F /IM node.exe || exit 0'
+
+                // Start server
+                bat 'start /B node server.js'
             }
         }
     }
@@ -37,6 +42,7 @@ pipeline {
         success {
             echo 'Deployment Successful'
         }
+
         failure {
             echo 'Deployment Failed'
         }
