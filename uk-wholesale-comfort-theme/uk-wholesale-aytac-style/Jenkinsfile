@@ -25,11 +25,10 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy (PM2)') {
             steps {
                 bat 'npx pm2 delete uk-wholesale || exit 0'
                 bat 'npx pm2 start server.js --name uk-wholesale'
-                bat 'npx pm2 save'
             }
         }
     }
