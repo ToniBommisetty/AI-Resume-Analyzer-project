@@ -27,8 +27,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                bat 'echo Starting application...'
-                bat 'start /B node server.js'
+                bat 'npx pm2 delete uk-wholesale || exit 0'
+                bat 'npx pm2 start server.js --name uk-wholesale'
+                bat 'npx pm2 save'
             }
         }
     }
