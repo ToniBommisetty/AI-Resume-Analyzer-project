@@ -20,7 +20,7 @@ pipeline {
             }
         }
 
-        stage('Stop Previous Server') {
+        stage('Stop Existing Server') {
             steps {
                 bat '''
                 FOR /F "tokens=5" %%P IN ('netstat -ano ^| findstr :3000') DO taskkill /PID %%P /F || exit 0
@@ -28,7 +28,7 @@ pipeline {
             }
         }
 
-        stage('Start App') {
+        stage('Start Server') {
             steps {
                 bat 'start /B node server.js'
             }
@@ -38,9 +38,6 @@ pipeline {
     post {
         success {
             echo 'Deployment Successful (Node without PM2)'
-        }
-        failure {
-            echo 'Deployment Failed'
         }
     }
 }
