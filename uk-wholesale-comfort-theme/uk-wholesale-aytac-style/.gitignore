@@ -1,6 +1,5 @@
-node_modules
+node_modules/
 .env
-data
+dist/
+build/
 *.log
-dist
-build

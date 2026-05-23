@@ -25,10 +25,10 @@ pipeline {
             }
         }
 
-        stage('Deploy (PM2)') {
+        stage('Deploy') {
             steps {
-                bat 'pm2 stop uk-wholesale || exit 0'
-                bat 'pm2 start server.js --name uk-wholesale'
+                bat 'echo Starting application...'
+                bat 'start /B node server.js'
             }
         }
     }
@@ -36,6 +36,9 @@ pipeline {
     post {
         success {
             echo 'Deployment Successful'
+        }
+        failure {
+            echo 'Deployment Failed'
         }
     }
 }
