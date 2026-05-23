@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+
+<section class="profile-page">
+  <div class="profile-card">
+    <h1>My Profile</h1>
+    <p>Update your account details and password.</p>
+
+    <% if (error) { %>
+      <div class="profile-error"><%= error %></div>
+    <% } %>
+
+    <% if (success) { %>
+      <div class="profile-success"><%= success %></div>
+    <% } %>
+
+    <form method="post" action="/account/profile">
+      <label>Name</label>
+      <input type="text" name="name" value="<%= user.name %>" required>
+
+      <label>Phone</label>
+      <input type="text" name="phone" value="<%= user.phone || '' %>">
+
+      <label>Business Name</label>
+      <input type="text" name="business_name" value="<%= user.business_name || '' %>">
+
+      <hr>
+
+      <label>Current Password</label>
+      <input type="password" name="current_password" placeholder="Required only if changing password">
+
+      <label>New Password</label>
+      <input type="password" name="new_password" placeholder="Leave empty to keep old password">
+
+      <button type="submit">Save Profile</button>
+    </form>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

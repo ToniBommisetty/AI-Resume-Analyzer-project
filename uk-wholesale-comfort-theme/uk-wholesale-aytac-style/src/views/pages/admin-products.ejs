@@ -1,0 +1,104 @@
+<%- include('../partials/header') %>
+
+<section class="admin-products-page">
+  <div class="products-header">
+    <div>
+      <h1>Products</h1>
+      <p>Manage all products in your wholesale store.</p>
+    </div>
+
+    <a href="/admin/products/new">+ Add Product</a>
+  </div>
+
+  <form class="admin-products-search" method="get" action="/admin/products">
+    <input 
+      type="text" 
+      name="q" 
+      value="<%= typeof q !== 'undefined' ? q : '' %>" 
+      placeholder="Search products, brand, SKU or category"
+    >
+
+    <button type="submit">Search</button>
+    <a href="/admin/products">Clear</a>
+  </form>
+
+  <div class="products-table-card">
+    <% if (products.length) { %>
+      <table class="products-table">
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% products.forEach(product => { %>
+            <tr>
+              <td>
+                <img 
+                  class="product-thumb"
+                  src="<%= product.image || '/images/placeholder-product.svg' %>"
+                  alt="<%= product.name %>"
+                >
+              </td>
+
+              <td>
+                <div class="product-name"><%= product.name %></div>
+
+                <% if (product.brand) { %>
+                  <div class="product-brand"><%= product.brand %></div>
+                <% } %>
+              </td>
+
+              <td>
+                <span class="category-badge">
+                  <%= product.category_name %>
+                </span>
+              </td>
+
+              <td>
+                <strong>£<%= Number(product.price).toFixed(2) %></strong>
+              </td>
+
+              <td>
+                <span class="stock-badge <%= product.stock <= 10 ? 'low-stock' : '' %>">
+                <%= product.stock %>
+                </span>
+
+                <% if (product.stock <= 10) { %>
+                <span class="low-stock-label">Low Stock</span>
+                <% } %>
+              </td>
+
+              <td>
+                <div class="action-buttons">
+                  <a class="edit-btn" href="/admin/products/<%= product.id %>/edit">
+                    Edit
+                  </a>
+
+                  <form method="post" action="/admin/products/<%= product.id %>?_method=DELETE">
+                    <button class="delete-btn" type="submit">
+                      Delete
+                    </button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <div class="empty-products">
+        <h2>No products found</h2>
+        <p>Add products to start selling.</p>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

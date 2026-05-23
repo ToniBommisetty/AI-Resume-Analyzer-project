@@ -1,0 +1,66 @@
+<%- include('../partials/header') %>
+
+<section class="admin-detail-page">
+  <div class="detail-header">
+    <div>
+      <h1>Order #<%= order.id %></h1>
+      <p>Customer order details, delivery/collection info, payment and products.</p>
+    </div>
+
+    <a href="/admin/orders">Back to Orders</a>
+  </div>
+
+  <div class="detail-grid">
+    <div class="detail-card">
+      <h2>Customer Details</h2>
+      <p><strong>Name:</strong> <%= order.name %></p>
+      <p><strong>Email:</strong> <%= order.email %></p>
+      <p><strong>Business:</strong> <%= order.business_name || 'N/A' %></p>
+      <p><strong>Phone:</strong> <%= order.phone || 'N/A' %></p>
+    </div>
+
+    <div class="detail-card">
+      <h2>Order Details</h2>
+      <p><strong>Address:</strong> <%= order.delivery_address || 'N/A' %></p>
+      <p><strong>Notes:</strong> <%= order.notes || 'N/A' %></p>
+      <p><strong>Status:</strong> <%= order.status %></p>
+      <p><strong>Total:</strong> £<%= Number(order.total).toFixed(2) %></p>
+
+      <p><strong>Fulfillment:</strong> <%= order.fulfillment_method || 'delivery' %></p>
+    <p><strong>Collection Branch:</strong> <%= order.collection_branch || 'N/A' %></p>
+    <p><strong>Payment Method:</strong> <%= order.payment_method || 'N/A' %></p>
+    <p><strong>Payment Status:</strong> <%= order.payment_status || 'pending' %></p>
+    
+
+      <a class="view-order-btn invoice-btn" href="/invoice/<%= order.id %>">
+        Download Invoice
+      </a>
+    </div>
+  </div>
+
+  <div class="orders-card">
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% items.forEach(item => { %>
+          <tr>
+            <td><strong><%= item.product_name %></strong></td>
+            <td><%= item.qty %></td>
+            <td>£<%= Number(item.price).toFixed(2) %></td>
+            <td>£<%= Number(item.price * item.qty).toFixed(2) %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

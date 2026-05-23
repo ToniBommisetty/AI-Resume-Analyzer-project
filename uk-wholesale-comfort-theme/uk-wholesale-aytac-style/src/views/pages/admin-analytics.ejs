@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+
+<section class="analytics-page">
+  <div class="analytics-header">
+    <div>
+      <h1>Sales Analytics</h1>
+      <p>Track revenue, orders, stock and best-selling products.</p>
+    </div>
+    <a href="/admin">Back to Dashboard</a>
+  </div>
+
+  <div class="analytics-grid">
+    <div class="analytics-card"><span>💷</span><h2>£<%= Number(stats.revenue).toFixed(2) %></h2><p>Total Revenue</p></div>
+    <div class="analytics-card"><span>🧾</span><h2><%= stats.orders %></h2><p>Total Orders</p></div>
+    <div class="analytics-card"><span>👥</span><h2><%= stats.customers %></h2><p>Customers</p></div>
+    <div class="analytics-card"><span>⚠️</span><h2><%= stats.lowStock %></h2><p>Low Stock Items</p></div>
+  </div>
+
+  <div class="analytics-panels">
+    <div class="analytics-panel">
+      <h2>Orders by Status</h2>
+      <% statusRows.forEach(row => { %>
+        <div class="analytics-row">
+          <span><%= row.status %></span>
+          <strong><%= row.count %></strong>
+        </div>
+      <% }) %>
+    </div>
+
+    <div class="analytics-panel">
+      <h2>Top Products</h2>
+      <% topProducts.forEach(product => { %>
+        <div class="analytics-row">
+          <span><%= product.product_name %></span>
+          <strong><%= product.qty %> sold</strong>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

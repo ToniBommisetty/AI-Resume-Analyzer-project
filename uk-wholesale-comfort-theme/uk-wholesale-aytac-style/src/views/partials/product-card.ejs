@@ -1,0 +1,18 @@
+<article class="product">
+  <a href="/product/<%= product.slug %>">
+    <img src="<%= product.image || '/images/placeholder-product.svg' %>" alt="<%= product.name %>">
+    <p class="brand"><%= product.brand %></p>
+    <h3><%= product.name %></h3>
+  </a>
+
+  <% if (user) { %>
+    <p class="price">£<%= Number(product.price).toFixed(2) %></p>
+    <form method="post" action="/cart/add/<%= product.id %>">
+      <input type="hidden" name="qty" value="1">
+      <button class="cart-btn">+ Cart</button>
+    </form>
+  <% } else { %>
+    <p class="login-price">Login to view price</p>
+    <a class="cart-btn" href="/login">Login to order</a>
+  <% } %>
+</article>

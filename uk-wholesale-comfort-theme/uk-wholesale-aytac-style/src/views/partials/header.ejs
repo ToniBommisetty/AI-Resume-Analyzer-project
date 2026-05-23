@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navtej Wholesale Store</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="mobile-top">
+  <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+  <a href="/" class="mobile-logo">WhatsApp</a>
+  <a href="/cart" class="mobile-download">⌄</a>
+</div>
+
+<div class="mobile-header-bar">
+  <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+    ☰
+  </button>
+
+  <a href="/" class="mobile-brand">
+    Navtej Store
+  </a>
+
+  <a href="/cart" class="mobile-cart-btn">
+    🧺
+  </a>
+</div>
+
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="toggleMobileMenu()"></div>
+
+<div class="mobile-side-menu" id="mobileSideMenu">
+
+  <div class="mobile-menu-top">
+    <h2>Navtej Store</h2>
+
+    <button onclick="toggleMobileMenu()">✕</button>
+  </div>
+
+  <% if (user) { %>
+
+    <% if (user.role === 'admin') { %>
+      <a href="/admin">📊 Admin Dashboard</a>
+    <% } %>
+
+    <a href="/customer">👤 My Account</a>
+    <a href="/account/profile">⚙️ Profile</a>
+    <a href="/account/orders">📦 Orders</a>
+    <a href="/cart">🧺 Basket (<%= cartCount %>)</a>
+
+    <form action="/logout" method="post">
+      <button type="submit">🚪 Logout</button>
+    </form>
+
+  <% } else { %>
+
+    <a href="/login">🔑 Login</a>
+    <a href="/register">📝 Register</a>
+
+  <% } %>
+
+  <button class="mobile-dark-btn" onclick="toggleDarkMode()">
+    🌙 Dark Mode
+  </button>
+</div>
+
+<div class="top-strip">
+
+<div class="top-strip">👉 Join our WhatsApp Channel to get the latest deals & exclusive offers! 📲</div>
+<div class="notice">🚚 All online orders are final sale. London free delivery over £500, outside London over £1000.</div>
+
+<header class="main-header">
+  <a href="/" class="toni-logo">
+  <div class="toni-logo-icon">
+    🛒
+  </div>
+
+  <div class="toni-logo-text">
+    <h1>Navtej</h1>
+    <span>WHOLESALE STORE</span>
+  </div>
+</a>
+
+  <button class="header-search-trigger" onclick="openSearchModal()">
+    <span>🔍</span>
+    <span>Search for Aytac Products</span>
+    <span class="mic">🎙️</span>
+  </button>
+
+  <div class="header-icons">
+    <% if (user) { %>
+  <% if (user.role === 'admin') { %>
+    <a href="/admin">Admin</a>
+    <a href="/customer">Customer View</a>
+    <a href="/account/profile">Profile</a>
+  <% } else { %>
+    <a href="/customer">My Account</a>
+    <a href="/account/profile">Profile</a>
+  <% } %>
+
+  <a href="/account/orders">Orders</a>
+
+  <form action="/logout" method="post">
+    <button class="link-btn">Logout</button>
+  </form>
+<% } else { %>
+      <a href="/login" class="icon-link"><span>♙</span><small>Log in</small></a>
+      <a href="/register" class="icon-link"><span>♙</span><small>Sign Up</small></a>
+    <% } %>
+
+    <a href="/cart" class="basket-icon">🧺 <small><%= cartCount %></small></a>
+    <button type="button" class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+  </div>
+</header>
+
+<section class="benefit-bar">
+  <div>
+    <span>🚚</span>
+    <strong>Free Delivery</strong>
+    <small>London orders over £500</small>
+  </div>
+
+  <div>
+    <span>📦</span>
+    <strong>Wide Range</strong>
+    <small>1000+ Products</small>
+  </div>
+
+  <div>
+    <span>🏅</span>
+    <strong>Quality Assured</strong>
+    <small>Premium Quality</small>
+  </div>
+
+  <div>
+    <span>🎧</span>
+    <strong>Dedicated Support</strong>
+    <small>We're here to help</small>
+  </div>
+
+  <div>
+    <span>🛡️</span>
+    <strong>Secure Payment</strong>
+    <small>Safe & Trusted</small>
+  </div>
+</section>
+
+<div class="search-backdrop" id="searchBackdrop" onclick="closeSearchModal()"></div>
+<div class="search-modal" id="searchModal">
+  <div class="search-modal-box">
+    <div class="search-modal-input">
+      <span>🔍</span>
+      <input id="liveSearchInput" type="text" placeholder="Search for Aytac Products" autocomplete="off">
+      <button type="button" onclick="clearSearch()">×</button>
+      <span class="divider"></span>
+      <span>🎙️</span>
+    </div>
+
+    <div class="search-modal-content">
+      <div class="search-results-panel">
+        <div class="tabs">
+          <button class="active">Products</button>
+          <button>Collections</button>
+        </div>
+
+        <div id="liveSearchResults" class="live-results">
+          <p class="muted">Type to search products...</p>
+        </div>
+      </div>
+
+      <div class="suggestions-panel">
+        <h3>Suggestions</h3>
+        <button onclick="quickSearch('coca')">coca</button>
+        <button onclick="quickSearch('honey')">honey</button>
+        <button onclick="quickSearch('sugar')">sugar</button>
+        <button onclick="quickSearch('container')">container</button>
+        <button onclick="quickSearch('roll')">roll</button>
+      </div>
+    </div>
+
+    <a href="/login" class="modal-signin-btn">Sign in</a>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+<main>

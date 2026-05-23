@@ -1,0 +1,29 @@
+<%- include('../partials/header') %>
+
+<section class="auth-page">
+  <div class="auth-card">
+    <h1>Create Admin Account</h1>
+
+    <% if (error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+
+    <form method="post" action="/admin-register">
+      <label>Name</label>
+      <input type="text" name="name" placeholder="Enter admin name" required>
+
+      <label>Email</label>
+      <input type="email" name="email" placeholder="Enter admin email" required>
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter password" required>
+
+      <label>Admin Secret Code</label>
+      <input type="password" name="secretCode" placeholder="Enter admin secret code" required>
+
+      <button type="submit">Create Admin</button>
+    </form>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,57 @@
+<%- include('../partials/header') %>
+
+<section class="customer-order-detail-page">
+  <div class="order-detail-header">
+    <div>
+      <h1>Order #<%= order.id %></h1>
+      <p>Review your purchased products and order status.</p>
+    </div>
+
+    <a href="/account/orders">Back to My Orders</a>
+  </div>
+
+  <div class="order-detail-summary">
+    <div>
+      <span>Status</span>
+      <strong><%= order.status %></strong>
+    </div>
+
+    <div>
+      <span>Total</span>
+      <strong>£<%= Number(order.total).toFixed(2) %></strong>
+    </div>
+
+    <div>
+      <span>Date</span>
+      <strong><%= order.created_at %></strong>
+    </div>
+  </div>
+
+  <div class="order-items-card">
+    <h2>Products Ordered</h2>
+
+    <table class="order-items-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% items.forEach(item => { %>
+          <tr>
+            <td><strong><%= item.product_name %></strong></td>
+            <td><%= item.qty %></td>
+            <td>£<%= Number(item.price).toFixed(2) %></td>
+            <td>£<%= Number(item.price * item.qty).toFixed(2) %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

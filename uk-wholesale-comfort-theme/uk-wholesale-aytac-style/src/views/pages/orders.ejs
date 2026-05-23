@@ -1,0 +1,70 @@
+<%- include('../partials/header') %>
+
+<section class="my-orders-page">
+  <div class="my-orders-header">
+    <div>
+      <h1>My Orders</h1>
+      <p>View your order history, status, details, and invoices.</p>
+    </div>
+
+    <a href="/products">Continue Shopping</a>
+  </div>
+
+  <% if (orders.length) { %>
+    <div class="my-orders-grid">
+      <% orders.forEach(order => { %>
+        <div class="my-order-card">
+          <div class="my-order-top">
+            <h2>
+              <a class="my-order-link" href="/account/orders/<%= order.id %>">
+                Order #<%= order.id %>
+              </a>
+            </h2>
+
+            <span class="order-status-pill <%= order.status %>">
+              <%= order.status %>
+            </span>
+          </div>
+
+          <div class="my-order-info">
+            <div>
+              <span>Total</span>
+              <strong>£<%= Number(order.total).toFixed(2) %></strong>
+            </div>
+
+            <div>
+              <span>Date</span>
+              <strong><%= order.created_at %></strong>
+            </div>
+          </div>
+
+          <div class="my-order-footer">
+            <p>
+              Your order is currently
+              <strong><%= order.status %></strong>.
+            </p>
+
+            <div class="customer-order-actions">
+              <a class="invoice-link" href="/invoice/<%= order.id %>">
+                Download Invoice
+              </a>
+
+              <a class="invoice-link secondary" href="/account/orders/<%= order.id %>">
+                View Details
+              </a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="empty-orders-box">
+      <span>📦</span>
+      <h2>No orders yet</h2>
+      <p>Once you place an order, it will appear here.</p>
+      <a href="/products">Start Shopping</a>
+    </div>
+  <% } %>
+</section>
+
+<%- include('../partials/footer') %>

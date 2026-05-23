@@ -1,0 +1,62 @@
+<%- include('../partials/header') %>
+
+<section class="admin-categories-page">
+  <div class="categories-header">
+    <div>
+      <h1>Categories</h1>
+      <p>Create, view, and manage product categories.</p>
+    </div>
+
+    <a href="/admin">Back to Dashboard</a>
+  </div>
+
+  <div class="category-form-card">
+    <h2>Add New Category</h2>
+
+    <form method="post" action="/admin/categories" class="category-form">
+      <input type="text" name="name" placeholder="Category name" required>
+      <input type="text" name="slug" placeholder="Slug optional">
+      <input type="number" name="sort_order" placeholder="Sort order">
+      <button type="submit">Add Category</button>
+    </form>
+  </div>
+
+  <div class="categories-table-card">
+    <table class="categories-table">
+      <thead>
+        <tr>
+          <th>Category Name</th>
+          <th>Slug</th>
+          <th>Sort Order</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% allCategories.forEach(cat => { %>
+          <tr>
+            <td>
+              <strong><%= cat.name %></strong>
+            </td>
+
+            <td>
+              <span class="slug-badge"><%= cat.slug %></span>
+            </td>
+
+            <td>
+              <span class="sort-badge"><%= cat.sort_order || 0 %></span>
+            </td>
+
+            <td>
+              <form method="post" action="/admin/categories/<%= cat.id %>?_method=DELETE">
+                <button class="delete-category-btn" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

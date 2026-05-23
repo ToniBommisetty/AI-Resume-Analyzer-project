@@ -1,0 +1,75 @@
+<%- include('../partials/header') %>
+
+<section class="cart-page">
+  <div class="cart-header">
+    <h1>Basket</h1>
+    <p>Review your items before checkout.</p>
+  </div>
+
+  <% if (cart.length) { %>
+    <div class="cart-layout">
+      <div class="cart-card">
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% cart.forEach(item => { %>
+              <tr>
+                <td>
+                  <div class="cart-product-name">
+                    <strong><%= item.name %></strong>
+                  </div>
+                </td>
+
+                <td>
+                  <form method="post" action="/cart/update/<%= item.id %>" class="cart-qty-form">
+                    <input type="number" name="qty" min="1" value="<%= item.qty %>">
+                    <button type="submit">Update</button>
+                  </form>
+                </td>
+
+                <td>£<%= Number(item.price).toFixed(2) %></td>
+                <td><strong>£<%= Number(item.price * item.qty).toFixed(2) %></strong></td>
+
+                <td>
+                  <form method="post" action="/cart/remove/<%= item.id %>">
+                    <button class="remove-cart-btn" type="submit">Remove</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cart-summary">
+        <h2>Order Summary</h2>
+
+        <div class="summary-line">
+          <span>Total</span>
+          <strong>£<%= Number(total).toFixed(2) %></strong>
+        </div>
+
+        <a href="/checkout">Checkout</a>
+        <a class="continue-shopping" href="/products">Continue Shopping</a>
+      </div>
+    </div>
+  <% } else { %>
+    <div class="empty-cart">
+      <span>🧺</span>
+      <h2>Your basket is empty</h2>
+      <p>Add products to your basket before checkout.</p>
+      <a href="/products">Start Shopping</a>
+    </div>
+  <% } %>
+</section>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+
+<section class="success-page">
+  <div class="success-card">
+    <div class="success-icon">✅</div>
+    <h1>Order Placed Successfully</h1>
+    <p>Your order #<%= order.id %> has been received.</p>
+    <h2>£<%= Number(order.total).toFixed(2) %></h2>
+
+    <div class="success-actions">
+      <a href="/account/orders">View My Orders</a>
+      <a href="/products">Continue Shopping</a>
+    </div>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

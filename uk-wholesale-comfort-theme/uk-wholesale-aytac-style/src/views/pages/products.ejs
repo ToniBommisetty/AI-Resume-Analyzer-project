@@ -1,0 +1,17 @@
+<section class="product-filter-box">
+  <form method="get" action="/products">
+    <input type="text" name="q" value="<%= q || '' %>" placeholder="Search products">
+    <input type="number" name="minPrice" value="<%= minPrice || '' %>" placeholder="Min price">
+    <input type="number" name="maxPrice" value="<%= maxPrice || '' %>" placeholder="Max price">
+    <input type="text" name="brand" value="<%= brand || '' %>" placeholder="Brand">
+
+    <label>
+      <input type="checkbox" name="inStock" value="1" <%= inStock ? 'checked' : '' %>>
+      In stock only
+    </label>
+
+    <button type="submit">Filter</button>
+    <a href="/products">Clear</a>
+  </form>
+</section>
+<%- include('../partials/header') %><section class="section"><div class="section-head"><h2>Products</h2><form class="filter-form" action="/products"><input name="q" value="<%= q %>" placeholder="Search"><select name="category"><option value="">All categories</option><% categories.forEach(cat => { %><option value="<%= cat.slug %>" <%= category === cat.slug ? 'selected' : '' %>><%= cat.name %></option><% }) %></select><button class="btn">Filter</button></form></div><div class="products"><% products.forEach(product => { %><%- include('../partials/product-card', { product }) %><% }) %></div></section><%- include('../partials/footer') %>

@@ -1,0 +1,108 @@
+<%- include('../partials/header') %>
+
+<section class="admin-form-page">
+  <div class="form-header">
+    <div>
+      <h1><%= title %></h1>
+      <p>Add or edit product details for your store.</p>
+    </div>
+
+    <a href="/admin/products">Back to Products</a>
+  </div>
+
+  <form class="product-form-card" method="post" action="<%= action %>" enctype="multipart/form-data">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" name="name" value="<%= product ? product.name : '' %>" required>
+      </div>
+
+      <div class="form-group">
+        <label>Slug</label>
+        <input type="text" name="slug" value="<%= product ? product.slug : '' %>" placeholder="Auto-created if empty">
+      </div>
+
+      <div class="form-group">
+        <label>SKU</label>
+        <input type="text" name="sku" value="<%= product ? product.sku : '' %>">
+      </div>
+
+      <div class="form-group">
+        <label>Brand</label>
+        <input type="text" name="brand" value="<%= product ? product.brand : '' %>">
+      </div>
+
+      <div class="form-group">
+        <label>Category</label>
+        <select name="category_id" required>
+          <% categories.forEach(cat => { %>
+            <option value="<%= cat.id %>" <%= product && product.category_id === cat.id ? 'selected' : '' %>>
+              <%= cat.name %>
+            </option>
+          <% }) %>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Price</label>
+        <input type="number" step="0.01" name="price" value="<%= product ? product.price : '' %>" required>
+      </div>
+
+      <div class="form-group">
+        <label>Stock</label>
+        <input type="number" name="stock" value="<%= product ? product.stock : '' %>" required>
+      </div>
+
+      <div class="form-group full">
+        <label>Description</label>
+        <textarea name="description" rows="5"><%= product ? product.description : '' %></textarea>
+      </div>
+
+      <div class="form-group full">
+        <label>Product Image</label>
+        <input type="file" name="image_file" id="productImageInput" accept="image/*">
+
+<div class="image-preview-box">
+  <img 
+    id="productImagePreview"
+    src="<%= product && product.image ? product.image : '/images/placeholder-product.svg' %>"
+    alt="Product preview"
+  >
+</div>
+
+<script>
+  const input = document.getElementById('productImageInput');
+  const preview = document.getElementById('productImagePreview');
+
+  if (input && preview) {
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+      }
+    });
+  }
+</script>
+      </div>
+    </div>
+
+    <div class="checkbox-row">
+      <label>
+        <input type="checkbox" name="is_best_seller" <%= product && product.is_best_seller ? 'checked' : '' %>>
+        Best seller
+      </label>
+
+      <label>
+        <input type="checkbox" name="is_active" <%= !product || product.is_active ? 'checked' : '' %>>
+        Active
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit">Save Product</button>
+      <a href="/admin/products">Cancel</a>
+    </div>
+  </form>
+</section>
+
+<%- include('../partials/footer') %>

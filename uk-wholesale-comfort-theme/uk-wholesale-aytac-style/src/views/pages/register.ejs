@@ -1,0 +1,38 @@
+<%- include('../partials/header') %>
+
+<section class="auth-page">
+  
+  <div class="auth-card">
+    <h1>Create Account</h1>
+
+    <% if (error) { %>
+      <p class="error"><%= error %></p>
+    <% } %>
+
+    <form method="post" action="/register">
+      <label>Full Name</label>
+      <input type="text" name="name" required>
+
+      <label>Business Name</label>
+      <input type="text" name="business_name">
+
+      <label>Phone</label>
+      <input type="text" name="phone">
+
+      <label>Email</label>
+      <input type="email" name="email" required>
+
+      <label>Password</label>
+      <input type="password" name="password" required>
+
+      <button type="submit">Create Account</button>
+    </form>
+
+    <p class="auth-bottom-text">Already have an account?</p>
+    <a href="/login" class="signin-clean-link">
+  Sign in here
+</a>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

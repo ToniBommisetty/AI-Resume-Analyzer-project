@@ -1,0 +1,86 @@
+<%- include('../partials/header') %>
+
+<section class="admin-orders-page">
+  <div class="orders-header">
+    <div>
+      <h1>Customer Orders</h1>
+      <p>View customer orders, update status, and download invoices.</p>
+    </div>
+
+    <a href="/admin">Back to Dashboard</a>
+  </div>
+
+  <div class="orders-card">
+    <% if (orders.length) { %>
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Customer</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% orders.forEach(order => { %>
+            <tr>
+              <td>
+                <a class="order-link" href="/admin/orders/<%= order.id %>">
+                  #<%= order.id %>
+                </a>
+              </td>
+
+              <td>
+                <div class="customer-name"><%= order.name %></div>
+                <div class="customer-email"><%= order.email %></div>
+              </td>
+
+              <td>
+                <strong>£<%= Number(order.total).toFixed(2) %></strong>
+              </td>
+
+              <td>
+                <form method="post" action="/admin/orders/<%= order.id %>/status" class="status-form">
+                  <select name="status">
+                    <option value="pending" <%= order.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                    <option value="processing" <%= order.status === 'processing' ? 'selected' : '' %>>Processing</option>
+                    <option value="completed" <%= order.status === 'completed' ? 'selected' : '' %>>Completed</option>
+                    <option value="cancelled" <%= order.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                  </select>
+
+                  <button type="submit">Save</button>
+                </form>
+              </td>
+
+              <td>
+                <span class="order-date"><%= order.created_at %></span>
+              </td>
+
+              <td>
+                <div class="order-action-buttons">
+                  <a class="view-order-btn" href="/admin/orders/<%= order.id %>">
+                    View Details
+                  </a>
+
+                  <a class="view-order-btn invoice-btn" href="/invoice/<%= order.id %>">
+                    Invoice PDF
+                  </a>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <div class="empty-orders">
+        <h2>No orders yet</h2>
+        <p>Customer orders will appear here after checkout.</p>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

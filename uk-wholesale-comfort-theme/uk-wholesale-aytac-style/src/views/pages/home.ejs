@@ -1,0 +1,95 @@
+<%- include('../partials/header') %>
+
+<section class="hero-slider">
+  <div class="hero-slide active">
+    <h1>Welcome to Navtej Wholesale</h1>
+    <p>Bulk groceries, catering products and everyday essentials.</p>
+    <a href="/products">Shop Now</a>
+  </div>
+
+  <div class="hero-slide">
+    <h1>Collect From Store</h1>
+    <p>Choose your nearest UK branch at checkout.</p>
+    <a href="/products">Start Order</a>
+  </div>
+
+  <div class="hero-slide">
+    <h1>Free Delivery Offers</h1>
+    <p>London orders over £500, outside London over £1000.</p>
+    <a href="/products">View Products</a>
+  </div>
+</section>
+<section class="home-categories category-under-header">
+  <%
+const categoryImages = {
+  'Shop & Retail': 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=600&q=80',
+  'Catering': 'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=600&q=80',
+  'Fruit & Veg': 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=600&q=80',
+  'Groceries': 'https://images.unsplash.com/photo-1543168256-418811576931?auto=format&fit=crop&w=600&q=80',
+  'Bakery': 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80',
+  'Chilled': 'https://images.unsplash.com/photo-1563636619-e9143da7973b?auto=format&fit=crop&w=600&q=80',
+  'Confectionery': 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=600&q=80',
+  'Drinks': 'https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?auto=format&fit=crop&w=600&q=80',
+  'Non Food': 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=600&q=80',
+  'Pulses': 'https://images.unsplash.com/photo-1515543904379-3d757afe72e4?auto=format&fit=crop&w=600&q=80'
+};
+%>
+
+  <% categories.forEach(cat => { %>
+    <a class="category-tile" href="/products?category=<%= cat.slug %>">
+      <img src="<%= categoryImages[cat.name] || categoryImages['Shop & Retail'] %>" alt="<%= cat.name %>">
+
+      <div>
+        <h3><%= cat.name %></h3>
+        <p>Shop Now →</p>
+      </div>
+    </a>
+  <% }) %>
+</section>
+
+<div class="catalog-strip">
+  <a href="/products">🌸 Spring Madness Catalogue</a>
+  <a href="/products">🛍️ View Our Latest Product Catalogue</a>
+</div>
+
+
+
+<section class="promo-grid">
+  <div class="promo-card mega-offer">
+    <div>
+      <p>SPRING MADNESS</p>
+      <h2>MEGA OFFERS!</h2>
+      <a href="/products">View Catalogue</a>
+    </div>
+  </div>
+
+  <div class="promo-card light-card">
+    <span class="promo-icon">📦</span>
+    <h2>Bulk Orders<br>Better Prices</h2>
+    <p>Get the best deals on bulk purchases.</p>
+    <a href="/products">Enquire Now</a>
+  </div>
+
+  <div class="promo-card light-card">
+    <span class="promo-icon">🚚</span>
+    <h2>Free Delivery</h2>
+    <p><strong>London orders over £500</strong></p>
+    <p><strong>Outside London over £1000</strong></p>
+    <a href="/products">Shop Now</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Best Sellers 🛒</h2>
+    <a href="/products">View all</a>
+  </div>
+
+  <div class="products">
+    <% bestSellers.forEach(product => { %>
+      <%- include('../partials/product-card', { product }) %>
+    <% }) %>
+  </div>
+</section>
+
+<%- include('../partials/footer') %>

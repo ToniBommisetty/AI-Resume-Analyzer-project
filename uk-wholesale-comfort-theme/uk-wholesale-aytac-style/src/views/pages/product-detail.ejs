@@ -1,0 +1,96 @@
+<%- include('../partials/header') %>
+
+<section class="product-detail-page">
+  <div class="product-detail-card">
+
+    <div class="product-gallery">
+      <div class="main-product-image">
+        <img id="mainProductImage" src="<%= images[0] %>" alt="<%= product.name %>">
+      </div>
+
+      <div class="thumbnail-row">
+        <% images.forEach(img => { %>
+          <button type="button" onclick="changeMainImage('<%= img %>')">
+            <img src="<%= img %>" alt="Product image">
+          </button>
+        <% }) %>
+      </div>
+    </div>
+
+    <div class="product-info-side">
+      <div class="product-breadcrumb">
+        <span><%= product.brand || 'Navtej Wholesale' %></span>
+        <span> / </span>
+        <span><%= product.category_name %></span>
+      </div>
+
+      <h1><%= product.name %></h1>
+
+      <p class="product-description">
+        <%= product.description || 'Premium wholesale product available at Navtej Wholesale Store.' %>
+      </p>
+
+      <div class="product-meta">
+        <div>
+          <strong>SKU</strong>
+          <span><%= product.sku || 'N/A' %></span>
+        </div>
+
+        <div>
+          <strong>Stock</strong>
+          <span><%= product.stock %> Available</span>
+        </div>
+      </div>
+
+      <% if (user) { %>
+        <div class="product-price">£<%= Number(product.price).toFixed(2) %></div>
+      <% } else { %>
+        <div class="login-price-message">Login to view wholesale prices</div>
+      <% } %>
+
+      <form action="/cart/add/<%= product.id %>" method="post" class="product-cart-form">
+        <input type="number" name="qty" min="1" value="1">
+        <button type="submit">🛒 Add to Basket</button>
+      </form>
+    </div>
+  </div>
+
+  <section class="reviews-section">
+    <h2>Customer Reviews</h2>
+
+    <% if (user) { %>
+      <form method="post" action="/product/<%= product.id %>/review" class="review-form">
+        <select name="rating">
+          <option value="5">★★★★★ 5</option>
+          <option value="4">★★★★ 4</option>
+          <option value="3">★★★ 3</option>
+          <option value="2">★★ 2</option>
+          <option value="1">★ 1</option>
+        </select>
+
+        <textarea name="comment" placeholder="Write your review"></textarea>
+        <button type="submit">Submit Review</button>
+      </form>
+    <% } %>
+
+    <% if (reviews && reviews.length) { %>
+      <% reviews.forEach(review => { %>
+        <div class="review-card">
+          <strong><%= review.name %></strong>
+          <p class="stars"><%= '★'.repeat(review.rating) %></p>
+          <p><%= review.comment %></p>
+        </div>
+      <% }) %>
+    <% } else { %>
+      <p>No reviews yet.</p>
+    <% } %>
+  </section>
+</section>
+
+<script>
+  function changeMainImage(src) {
+    document.getElementById('mainProductImage').src = src;
+  }
+</script>
+
+<%- include('../partials/footer') %>
