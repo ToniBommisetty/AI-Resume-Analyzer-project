@@ -9,7 +9,8 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/ToniBommisetty/ToniWholeSale.git'
+                git branch: 'master',
+                url: 'https://github.com/ToniBommisetty/ToniWholeSale.git'
             }
         }
 
@@ -19,20 +20,16 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Stop Previous Server') {
             steps {
-                echo 'No tests defined yet'
+                bat '''
+                FOR /F "tokens=5" %%P IN ('netstat -ano ^| findstr :3000') DO taskkill /PID %%P /F || exit 0
+                '''
             }
         }
 
-        stage('Deploy') {
+        stage('Start App') {
             steps {
-                echo 'Starting application using Node (no PM2)'
-                
-                // Kill any old node process (prevents port issues)
-                bat 'taskkill /F /IM node.exe || exit 0'
-
-                // Start server
                 bat 'start /B node server.js'
             }
         }
@@ -40,9 +37,8 @@ pipeline {
 
     post {
         success {
-            echo 'Deployment Successful'
+            echo 'Deployment Successful (Node without PM2)'
         }
-
         failure {
             echo 'Deployment Failed'
         }
